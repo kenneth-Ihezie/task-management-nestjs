@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { title } from 'process';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { Task } from './task.model';
@@ -14,14 +14,19 @@ export class TasksController {
          return this.taskService.getAllTasks()
      }
 
+     @Get('/:id')
+     getTaskById(@Param('id') id: string): Task{       
+       return this.taskService.getTaskById(id)
+     }
+
     //Am using getting all the body params
     //  @Post()
-    //  createNewTask(@Body() body){
+    //  createNewTask(@Body() body){*
     //    console.log(body);
     //  }
 
     //Below am using the body annotation with key
-    // @Post()
+    // @Post() 
     // createNewTask(
     //     @Body('title') title: string,
     //     @Body('description') description: string
@@ -33,5 +38,10 @@ export class TasksController {
     @Post()
     createNewTask(@Body() createTaskDto: CreateTaskDto): Task {
       return this.taskService.createNewTask(createTaskDto)
+    }
+
+    @Delete('/:id')
+    deleteTaskById(@Param('id') id: string): void {
+      return this.taskService.deleteTaskById(id)
     }
 }

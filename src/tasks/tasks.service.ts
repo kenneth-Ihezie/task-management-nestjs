@@ -12,6 +12,11 @@ export class TasksService {
        return this.tasks
    }
 
+   getTaskById(id: string): Task{
+      console.log(this.tasks.find(task => task.id === id));
+      return this.tasks.find(task => task.id === id)
+   }
+
    createNewTask(createTaskDto: CreateTaskDto): Task {
        const { title, description } = createTaskDto
 
@@ -28,4 +33,11 @@ export class TasksService {
       //which also reduce load on our backend application 
       return task
    }
+
+   deleteTaskById(id: string): void { 
+      //am using the filter method of javascript...so basically when the task.id is not equal to the id keep the 
+      //task else filter out 
+       this.tasks = this.tasks.filter(task => task.id !== id)
+   }
+   
 }
