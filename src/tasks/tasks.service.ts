@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Task, TaskStatus } from './task.model';
 import { v4 as uuid } from 'uuid';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -30,7 +30,15 @@ export class TasksService {
    }
 
    getTaskById(id: string): Task{
-      return this.tasks.find(task => task.id === id)
+      const data = this.tasks.find(task => task.id === id)
+      if(!data){
+         //using default msg
+         //throw new NotFoundException()
+
+         //custom msg
+         throw new NotFoundException(`Task with ID "${id}" not found`)
+      }
+      return data
    }
 
    createNewTask(createTaskDto: CreateTaskDto): Task {
@@ -59,7 +67,8 @@ export class TasksService {
    deleteTaskById(id: string): void { 
       //am using the filter method of javascript...so basically when the task.id is not equal to the id keep the 
       //task else filter out 
-       this.tasks = this.tasks.filter(task => task.id !== id)
+        const data = this.getTaskById(id)
+        this.tasks = this.tasks.filter(task => task.id !== data.id)
    }
 
 }
