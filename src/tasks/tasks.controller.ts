@@ -11,6 +11,7 @@ export class TasksController {
      constructor(private taskService: TasksService){}
 
      @Get()
+     //param level validation pipe
      getTasks(@Query(ValidationPipe) filterDto: GetTasksFilterDto): Task[]{         
       //we are checking if filterDto is empty then call getAllTasks else call getTaskWithFilter
       if(Object.keys(filterDto).length){
