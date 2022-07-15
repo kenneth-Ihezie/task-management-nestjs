@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UsePipes, Val
 import { CreateTaskDto } from './dto/create-task.dto';
 import { GetTasksFilterDto } from './dto/get-tasks-dto';
 import { TaskStatusValidationPipe } from './pipes/task-status-validation-pipe';
-import { Task, TaskStatus } from './task.model';
+import { Task, TaskStatus } from './model/task.model';
 import { TasksService } from './tasks.service';
 
 @Controller('tasks')
